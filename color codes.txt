@@ -1,0 +1,47 @@
+//header file: <windows.h>
+HANDLE color=GetStdHandle(STD_OUTPUT_HANDLE);
+
+SetConsoleTextAttribute(color, k);
+
+// color your text in Windows console mode
+// colors are 0=black 1=blue 2=green and so on to 15=white  
+// colorattribute = foreground + background * 16
+// to get red text on yellow use 4 + 14*16 = 228=k
+// light red on yellow would be 12 + 14*16 = 236=k
+
+SetConsoleTextAttribute ( h, FOREGROUND_RED & FOREGROUND_BLUE | BACKGROUND_BLUE  | FOREGROUND_INTENSITY | BACKGROUND_INTENSITY );
+
+The different color codes are
+
+0   BLACK
+1   BLUE
+2   GREEN
+3   CYAN
+4   RED
+5   MAGENTA
+6   BROWN
+7   LIGHTGRAY
+8   DARKGRAY
+9   LIGHTBLUE
+10  LIGHTGREEN
+11  LIGHTCYAN
+12  LIGHTRED
+13  LIGHTMAGENTA
+14  YELLOW
+15  WHITE
+
+ //header file : <stdlib.h> or <windows.h>
+ The command   is :   system("Colour _ _");
+
+In place of _ _ you have to enter colour combination you want ;
+First place takes background colour and 2nd place takes foreground colour (text colour) this is list of all colours available for this command:
+1_____Blue                                      A______Light Green
+2_____Green                                   B______Light Aqua
+3_____Aqua                                    C______Light Red
+4_____Red                                      D______Light Purple
+5_____Purple                                  E______Light Yellow
+6_____Yellow                                  F______Bright White 
+7_____White
+8_____Gray
+9_____Light Blue
+0_____Black
