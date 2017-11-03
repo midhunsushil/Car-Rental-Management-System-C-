@@ -5,6 +5,7 @@
 //#include<conio.h>
 #include"conionew.h"
 
+int op;
 void menu();
 HANDLE color=GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -197,14 +198,13 @@ void Design::crusor()
               void getcar();
               void putcar();
               void CarTable();
-              char * retcarid()
-               { //char * str=carid;
-                 return(carid);
-               }
+              char *retcarid() { return(carid); }
+              char *retmodel() { return(model); }
+              char *retmake() { return(make); }
               ~Cars(){/*Destructor to distroy this class when the scope is over*/}
              }C;
 
- void Cars::getcar() { cout<<"\n\tCarID => ";
+ void Cars::getcar() {  cout<<"\n\tCarID => ";
                         gets(carid);
                         cout<<"\n\tMAKE => ";
                         gets(make);
@@ -219,7 +219,7 @@ void Design::crusor()
                         cout<<"\n\tDescription[press ENTER to SKIP] => ";
                         gets(description);
                         status=1;
-                      }
+                     }
 
  void Cars::putcar() { cout<<"\n\tCarID => "<<carid;      // Displayed on Table
                         cout<<"\n\tMAKE => "<<make;       // MAKE+model Displayed on table
@@ -274,16 +274,55 @@ void Design::crusor()
                    carfile.close();
                 }
 
- void UpdateCar() {  int i=0;
-                     char carid[6];
+ void UpdateCar() {  int count=0,updatestatus=0,i=0;
+                     Cars M[10];
+                     char update[20];
                      fstream carfile("carsdata",ios::in|ios::out|ios::binary);
                          //Read from File and Write to File
                      system("cls");
-                     cout<<"\nEnter Carid of Car to Update => ";
-                     gets(carid);
+                     cout<<"\nEnter Carid\Model\Make of Car to Update => ";
+                     gets(update);
                      while(carfile.read((char*)&C, sizeof(Cars)))
-                      { if(strcmp(carid,C.retcarid())==0)
+                      { if(strcmp(update,C.retcarid())==0||strcmpi(update,C.retmodel())==0)
                          { cout<<"\nCar Found!";
+                           updatestatus=1;
+                           carfile.seekg(carfile.tellg()-sizeof(Cars));
+                           C.putcar();
+                           C.getcar();
+                           carfile.write((char*)&C, sizeof(Cars));
+                           break;
+                         }
+                        else if(strcmpi(update,C.retmake())==0) count++;
+                      }
+                     carfile.clear();
+                     carfile.seekg(0);
+                     if(count==1)
+                      while(carfile.read((char*)&C, sizeof(Cars)))
+                        if(strcmpi(update,C.retmake())==0)
+                         { cout<<"\nCar Found!";
+                           updatestatus=1;
+                           carfile.seekg(carfile.tellg()-sizeof(Cars));
+                           C.putcar();
+                           C.getcar();
+                           carfile.write((char*)&C, sizeof(Cars));
+                           break;
+                         }
+                     if(count>1)
+                      { cout<<"\nMore than one record found !\a\n";
+                        while(carfile.read((char*)&C, sizeof(Cars)))
+                         if(strcmpi(update,C.retmake())==0)
+                          { M[i]=C;i++; }
+                        for(i=0;i<count;i++)
+                         { cout<<"\n\t["<<(i+1)<<"]"<<"\tCarID: "<<M[i].retcarid();
+                           cout<<"\t\tCAR: "<<M[i].retmake()<<" "<<M[i].retmodel();
+                         }
+                        cout<<"\n\nOption => ";
+                        cin>>::op;
+                        carfile.clear();
+                        carfile.seekp(0);
+                        while(carfile.read((char*)&C, sizeof(Cars)))
+                        if(strcmpi(M[::op-1].retcarid(),C.retcarid())==0)
+                         { updatestatus=1;
                            carfile.seekg(carfile.tellg()-sizeof(Cars));
                            C.putcar();
                            C.getcar();
@@ -291,7 +330,8 @@ void Design::crusor()
                            break;
                          }
                       }
-                     cout<<"\n\t\tCar Details Updated ! ";
+                     if(updatestatus) cout<<"\n\t\tCar Details Updated ! ";
+                     else cout<<"\n\t\tCar Not Found !";
                      carfile.close();
                         getch();
 
@@ -324,7 +364,7 @@ void Design::crusor()
                                }
                            }
 
- void menu() { char op;
+ void menu() { //char op;
                menu: system("cls");
                cout<<"\t\t\t Main Menu\n\n";
                cout<<"\n\t[1] ADD Car\n";
@@ -333,36 +373,36 @@ void Design::crusor()
                cout<<"\n\t[4] Update Car\n";
                cout<<"\n\t[5] Exit\n";
                cout<<"\nEnter your option => ";
-               cin>>op;
-            switch(op)
-                { case '1': system("cls");
+               cin>>::op;
+            switch(::op)
+                { case 1: system("cls");
                             cout<<'\a';
                             AddCar();
                             break;
 
-                  case '2': system("cls");
+                  case 2: system("cls");
                             cout<<'\a';
                             DisplayCar();
                             break;
 
-                  case '3': system("cls");
+                  case 3: system("cls");
                             cout<<'\a';
                             C.CarTable(); getch();
                             break;
 
-                  case '4': system("cls");
+                  case 4: system("cls");
                             cout<<'\a';
                             UpdateCar();
                             break;
 
-                  case '5': exit(0);
+                  case 5: exit(0);
                 }
                goto menu;
              }
 
 
  void main() {
-               loading(4,4);
+               //loading(4,4);
                L.check();
              }
 
