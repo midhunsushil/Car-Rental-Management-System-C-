@@ -15,3 +15,5 @@ And border function creates the border if you specify the margin and length(hori
 
 UPDATE 2 => main program UpdateCar() function updated. Now you can search in update using carid / make / model;
             If more than one record found, program will ask to select.
+
+UPDATE 3 => included ADDCustomer, Carstatusedit() and improved efficiency
