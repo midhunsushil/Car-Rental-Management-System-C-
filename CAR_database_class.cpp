@@ -2,27 +2,24 @@
 #include<fstream.h>
 #include<stdio.h>
 #include<stdlib.h>
-//#include<conio.h>
-#include"conionew.h"
+#include<conio.h>
+#include"design.h"
 
-int op;
+char op;
 void menu();
 void ventry(char[],short,short);
 HANDLE color=GetStdHandle(STD_OUTPUT_HANDLE);
 
- class Design
+ class Login
   {
     char usr[12];
     char pss[12];
     //HANDLE color=GetStdHandle(STD_OUTPUT_HANDLE);
     public:
     int check();
-    void border(int p,int q,int l,int w,int type);
-    void crusor();
-
   }L;
 
-int Design::check()
+int Login::check()
   { //HANDLE color=GetStdHandle(STD_OUTPUT_HANDLE);
     xx:
     clrscr();
@@ -86,126 +83,30 @@ int Design::check()
       }
   }
 
- void line(int p,int q,int l,char type='v',int type2=0)
-  {
-     int i;char hl,vl;
-    /* Where (p,q)-margin (coordinate of top-left vertice of box border);
-       type=v - For Vertical Line (default)
-       type=h - For Horizontal Line
-       l-length(horizontal distance) of border;
-    */
-    if(type2==1)
-    {hl=45;vl=124;}   //hyphen(-)and or (|)
 
-   /* else if(type2==2)
-    {hl=205;vl=186;}
-    else if(type2==3)
-    {hl=205;vl=186;} */
-
-    else
-    {hl=196;vl=179;} //border characters
-
-    textcolor(WHITE);
-    if(type=='v')
-    for(i=0;i<l;i++)  // Vertical line of length l
-     { gotoxy(p,q+i);
-       cprintf("%c",vl); //'7C'(hyphen); 'DE'(accented i); '7C' (or line); 'B3' (border);
-     }
-     else
-     for(i=0;i<l;i++) // Horizontal Line of length l
-      { gotoxy(p+i,q);
-       cprintf("%c",hl);
-      }
-  }
-
-void Design::border(int p,int q,int l,int w,int type) //Use to make borders as the name suggests
-  { /* Where (p,q)-margin (coordinate of top-left vertice of box border);
-       w-width(vertical distance) of border;
-       l-length(horizontal distance) of border;
-       type => 2(double border)(default); type => 1(single border)
-    */
-    int i;
-    char tl,tr,bl,br,hl,vl;
-    if(type==1)
-    {tl=218;tr=191;bl=192;br=217;hl=196;vl=179;}
-
-    else
-    {tl=201;tr=187;bl=200;br=188;hl=205;vl=186;}
-
-    textcolor(WHITE);
-    gotoxy(p,q);
-    cprintf("%c",tl);//top-left
-    gotoxy(p+l,q);
-    cprintf("%c",tr);//top-right
-    gotoxy(p,q+w);
-    cprintf("%c",bl);//bottom-left
-    gotoxy(p+l,q+w);
-    cprintf("%c",br);//bottom-right
-
-    for(i=1;i<w;i++)  // Vertical line for width w
-     { gotoxy(p,q+i);
-       cprintf("%c",vl);
-       gotoxy(p+l,q+i);
-       cprintf("%c",vl);
-     }
-
-     for(i=1;i<l;i++) // Horizontal Line of length l
-     { gotoxy(p+i,q);
-       cprintf("%c",hl);
-       gotoxy(p+i,q+w);
-       cprintf("%c",hl);
-     }
-
-  }
-
-void Design::crusor()//To get position of pointer in console window(for output purpose)
-{ int x=1,y=1;
-  char key;
-  do
-    { gotoxy(x,y);
-      cout<<"      ";
-      gotoxy(x,y);
-      key=getch();
-      if(key==' ')
-        x++;
-      else if(key=='\b')
-       x--;
-      else if(key=='\r')
-       y++;
-      else if(key=='p')
-    {  gotoxy(1,1);
-       cout<<x<<" "<<y;
-    }
-
-      else if(key=='r')
-      {
-        x=1;y=1;
-      }
-    }
-  while(key!='N');
-
-}
-
- void ventry(char t[],short code=0,short N=10)
+void ventry(char t[],short code=4,short N=1)
 /* code=0 >> for inputing alphabets(a-Z), space & underscore(_)
    code=1 >> for inputing numbers(0-9), dot(.) & '/'
    code=2 >> for inputing username
    code=3 >> for normal input without space, ':' & ';'
+   code=4 >> for menu input (only numbers 0-9)
 */
   { unsigned short i=0;
     if(code==0)
-	  { while((t[i]=getch())!='\r' && i<N)
+	  { while(i<N && (t[i]=getch())!='\r')
         if((t[i]>=97 && t[i]<=122) || (t[i]>=65 && t[i]<=90) || t[i]==32 || t[i]=='_')
-		   { cout << t[i];
-		     i++;
-	    	}
+         { if(t[0]!=' '&& t[0]!='_') // To prevent space or '_' at first input
+		      { cout << t[i];
+		        i++;
+	         }
+         }
 	     else if(t[i]==8 && i>0)
 		   { cout<<"\b \b";
 		     i--;
 	    	}
 	  }
     else if(code==1)
-	  { while((t[i]=getch())!='\r' && i<N)
+	  { while(i<N && (t[i]=getch())!='\r')
 	    if((t[i]>=48 && t[i]<=57) || t[i]==46 || t[i] == '/')
 	     { cout<<t[i];
 	     	 i++;
@@ -217,7 +118,7 @@ void Design::crusor()//To get position of pointer in console window(for output p
 	  }
 
     if(code==2)
-	  { while((t[i]=getch())!='\r' && i<N)
+	  { while(i<N && (t[i]=getch())!='\r')
         if((t[i]>=97 && t[i]<=122) || (t[i]>=46 && t[i]<=57) || (t[i]>=65 && t[i]<=90) || t[i]=='@')
 		   { cout << t[i];
 		     i++;
@@ -229,7 +130,7 @@ void Design::crusor()//To get position of pointer in console window(for output p
      }
 
     if(code==3)
-	  { while((t[i]=getch())!='\r' && i<N)
+	  { while(i<N && (t[i]=getch())!='\r')
         if((t[i]>=33 && t[i]<=126) && t[i]!=':' && t[i]!=';')
 		   { cout << t[i];
 		     i++;
@@ -239,7 +140,19 @@ void Design::crusor()//To get position of pointer in console window(for output p
 		     i--;
 	    	}
 	  }
-      t[i]='\0';
+
+    else if(code==4)
+	  { while(i<N && (t[i]=getch())!='\r')
+	    if( t[i]>=48 && t[i]<=57 )
+	     { cout<<t[i];
+	     	 i++;
+        }
+	    else if(t[i]==8 && i>0)
+        { cout<<"\b \b";
+		    i--;
+	     }
+	  }
+    t[i]='\0';
   }
 
 
@@ -291,7 +204,7 @@ void Design::crusor()//To get position of pointer in console window(for output p
                         //cout<<"\n\tDescription[press ENTER to SKIP] => ";
                       }
 
- void Cars::CarTable(){ L.border(4,3,73,20,1);
+ void Cars::CarTable(){ border(4,3,73,20,1);
                         line(8,4,19);//Vertical line After No.
                         line(16,4,19);//Vertical line After Carid
                         line(35,4,19);//Vertical line After Car
@@ -320,7 +233,7 @@ void Design::crusor()//To get position of pointer in console window(for output p
 
  void Cars::AvailTable(char* &c) { system("color 0E");
                                    system("cls");
-                                   L.border(4,4,73,17,1);
+                                   border(4,4,73,17,1);
                                    line(8,5,16,'v',1);//Vertical line After No.
                                    line(16,5,16,'v',1);//Vertical line After Carid
                                    line(35,5,16,'v',1);//Vertical line After Car
@@ -384,29 +297,29 @@ void Design::crusor()//To get position of pointer in console window(for output p
                           cout<<"\n\t[3] Car Status Switch\n";
                           cout<<"\n\t[4] GO BACK\n";
                           cout<<"\nEnter your option => ";
-                          cin>>::op;
+                          ventry(&::op);
                           char carid[6];
                           switch(::op)
-                           { case 1: system("cls");
-                                     cout<<'\a';
-                                     status_edit("1");getch();
-                                     break;
+                           { case '1': system("cls");
+                                       cout<<'\a';
+                                       status_edit("1");getch();
+                                       break;
 
-                             case 2: system("cls");
-                                     cout<<'\a';
-                                     status_edit("0");getch();
-                                     break;
+                             case '2': system("cls");
+                                       cout<<'\a';
+                                       status_edit("0");getch();
+                                       break;
 
-                             case 3: system("cls");
-                                     cout<<'\a';
-                                     cout<<"\n\tEnter CarID to Update: ";
-                                     gets(carid);
-                                     status_edit(carid);getch();
-                                     break;
+                             case '3': system("cls");
+                                       cout<<'\a';
+                                       cout<<"\n\tEnter CarID to Update: ";
+                                       gets(carid);
+                                       status_edit(carid);getch();
+                                       break;
 
-                             case 4: system("cls");
-                                     menu();
-                                     break;
+                             case '4': system("cls");
+                                       menu();
+                                       break;
 
                            }
                           goto menu;
@@ -471,12 +384,13 @@ void Design::crusor()//To get position of pointer in console window(for output p
                          { cout<<"\n\t["<<(i+1)<<"]"<<"\tCarID: "<<M[i].retcarid();
                            cout<<"\t\tCAR: "<<M[i].retmake()<<" "<<M[i].retmodel();
                          }
+                        int op;
                         cout<<"\n\nOption => ";
-                        cin>>::op;
+                        cin>>op;
                         carfile.clear();
                         carfile.seekp(0);
                         while(carfile.read((char*)&C, sizeof(Cars)))
-                        if(strcmpi(M[::op-1].retcarid(),C.retcarid())==0)
+                        if(strcmpi(M[op-1].retcarid(),C.retcarid())==0)
                          { updatestatus=1;
                            carfile.seekg(carfile.tellg()-sizeof(Cars));
                            C.putcar();
@@ -507,21 +421,9 @@ void Design::crusor()//To get position of pointer in console window(for output p
                      carfile.close();
                    }
 
- void delay() { for(unsigned long i=0;i<80000000;i++) // Determines speed of loading Animation
-                  {/*To delay output*/ }
-              }
-
- void loading(int x,int y) { const char slash[4]={92,196,47,179};
-                             for(unsigned int i=0;i<4;i++) // Loading Running delay(1=0.4786 s)
-                              for(short j=0;j<4;j++)
-                               { gotoxy(x,y);textcolor(RED); // (x,y)-Position of Load Animation
-                                 putchar(slash[j]); delay();delay();
-                               }
-                           }
-
  void inputdesign() { clrscr;
                       SetConsoleTextAttribute(color,9);
-                      L.border(3,2,74,21,2);
+                      border(3,2,74,21,2);
                       gotoxy(9,8);cout<<"Drv. Lic. #: ";
                       gotoxy(46,8);cout<<"Name: ";
                       gotoxy(9,11);cout<<"Address: ";
@@ -542,10 +444,10 @@ void Design::crusor()//To get position of pointer in console window(for output p
                   void get_rentcarid() { C.AvailTable(rentcarid); }
                   void test(){cout<<rentcarid;}
                   char *ret_rentcarid() { return rentcarid; }
-                  ~Customer() { /*Destructor*/ }
+                  ~Customer() { /*Destructor the destroyer*/ }
                 }N;
 
- void Customer::getcustomer() { SetConsoleTextAttribute(color,11);
+ void Customer::getcustomer() { SetConsoleTextAttribute(color,11);//Customer Input Color
                                 gotoxy(22, 8); cin>>lic_no;
                                 N:
                                 gotoxy(52,8); ventry(name,0,24);
@@ -584,16 +486,21 @@ void Design::crusor()//To get position of pointer in console window(for output p
                         gotoxy(51,21); cout << " C";
                         SetConsoleTextAttribute(color,142);
                         cout << "ancel ";
-                      } S:
+                      }
+                      flushall();
+                      S:
                       if(getch()=='s')
                        {     //Write TO File
                          ofstream customer("customer_record",ios::out|ios::binary|ios::app);
                          customer.write((char*)&N, sizeof(Customer));
                          status_edit(N.ret_rentcarid());
                          SetConsoleTextAttribute(color,252);
-                         clrscr();                                //124
-                         gotoxy(31,12); cout<<" CUSTOMER SAVED ! ";
-                         for(int i=0;i<15;i++) { delay();delay();delay(); }
+                         clrscr();
+                         gotoxy(30,12); cout<<" PLEASE WAIT ! ";
+                         SetConsoleTextAttribute(color,10);
+                         loading(52,12);
+                         gotoxy(30,12); cout<<" CUSTOMER SAVED ! ";
+                         for(short i=0;i<5;i++) delay();
                          customer.close();
                        }
                       else if(getch()=='c') menu();
@@ -605,10 +512,9 @@ void Design::crusor()//To get position of pointer in console window(for output p
                       ifstream carfile("customer_record",ios::in|ios::binary);
                          //Read From File
                       system("cls");
-                      cout<<"\n\t\t\tDISPLAY AVAILABLE CARS";
-                      while(carfile.read((char*)&D, sizeof(D)))
-                       { cout<<"\n\n\tCar No. "<<(i+1)<<endl;
-                         inputdesign();
+                      cout<<"\n\t\t\tDISPLAY AVAILABLE CUSTOMERS";
+                      while(carfile.read((char*)&D, sizeof(Customer)))
+                       { inputdesign();
                          D.putcustomer();
                          getch();
                          i++;
@@ -622,51 +528,57 @@ void Design::crusor()//To get position of pointer in console window(for output p
                cout<<"\t\t\t Main Menu\n\n";
                cout<<"\n\t[1] ADD Car\n";
                cout<<"\n\t[2] ADD Customer\n";
-               cout<<"\n\t[3] Display Car\n";
-               cout<<"\n\t[4] Inventory\n";
-               cout<<"\n\t[5] Update Car\n";
-               cout<<"\n\t[6] Edit Status\n";
+               cout<<"\n\t[3] DISPLAY Customer\n";
+               cout<<"\n\t[4] Display Car\n";
+               cout<<"\n\t[5] Inventory\n";
+               cout<<"\n\t[6] Update Car\n";
+               cout<<"\n\t[7] Edit Status\n";
                cout<<"\n\t[8] Exit\n";
                cout<<"\nEnter your option => ";
-               cin>>::op;
+               ventry(&::op,4,1);
             switch(::op)
-                { case 1: system("cls");
+                { case '1': system("cls");
                             cout<<'\a';
                             AddCar();
                             break;
 
-                  case 2: system("cls");
+                  case '2': system("cls");
                             cout<<'\a';
                             AddCustomer();
                             break;
 
-                  case 3: system("cls");
+                  case '3': system("cls");
+                            cout<<'\a';
+                            DisplayCust();
+                            break;
+
+                  case '4': system("cls");
                             cout<<'\a';
                             DisplayCar();
                             break;
 
-                  case 4: system("cls");
+                  case '5': system("cls");
                             cout<<'\a';
                             C.CarTable(); getch();
                             break;
 
-                  case 5: system("cls");
+                  case '6': system("cls");
                             cout<<'\a';
                             UpdateCar();
                             break;
 
-                  case 6: system("cls");
+                  case '7': system("cls");
                             cout<<'\a';
                             status_editmenu();
                             break;
 
-                  case 7: system("cls");
-                            char* str;
-                            C.AvailTable(str);
-                            cout<<str; getch();
-                            break;
+                 // case '7': system("cls");
+                 //           char* str;
+                 //           C.AvailTable(str);
+                 //           cout<<str; getch();
+                 //           break;
 
-                  case 8: exit(0);
+                  case '8': exit(-1);
                 }
                goto menu;
              }
@@ -675,9 +587,8 @@ void Design::crusor()//To get position of pointer in console window(for output p
 
 
  void main() {
-              // loading(4,4);
+              //loading(4,4,10);
                L.check();
-               //DisplayCust();
                menu();
              }
 

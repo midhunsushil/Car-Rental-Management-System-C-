@@ -13,7 +13,11 @@ Login username : admin
 Password : pass123
 And border function creates the border if you specify the margin and length(horizontal space) and width (no of lines ie vertical space). Note that the width will be more than length. If you input 4 4 the output won't be a square it will be a vertical rectangle. The values inside square brackets are previous inputs so that you can compare.
 
+
 UPDATE 2 => main program UpdateCar() function updated. Now you can search in update using carid / make / model;
             If more than one record found, program will ask to select.
 
-UPDATE 3 => included ADDCustomer, Carstatusedit() and improved efficiency
+
+UPDATE 3 => included ADDCustomer(), Carstatusedit() and improved efficiency
+
+UPDATE 4 => U need to place header file "design.h" in the same folder of program to run it successfully;ADDED Display function for customers and loading animation in ADDCustomer()
