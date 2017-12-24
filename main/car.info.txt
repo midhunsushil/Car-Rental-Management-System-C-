@@ -1,0 +1,114 @@
+
+                        DISPLAY AVAILABLE CARS
+
+        Car No. 1
+
+        CarID : bw15
+
+        MAKE : BMW              Model : 4-series
+
+        YEAR : 2015             CATEGORY : Luxury Car
+
+        Passengers : 4
+
+        Car No. 2
+
+        CarID : i01i
+
+        MAKE : INFINITI         Model : QX70
+
+        YEAR : 2017             CATEGORY : Lux.Midsize SUV
+
+        Passengers : 5
+
+        Car No. 3
+
+        CarID : pe017
+
+        MAKE : PORCHE           Model : Cayenne
+
+        YEAR : 2017             CATEGORY : Lux. Midsize SUV
+
+        Passengers : 5
+
+        Car No. 4
+
+        CarID : 16_r8
+
+        MAKE : AUDI             Model : R8 CoupeV10
+
+        YEAR : 2016             CATEGORY : Sports Car
+
+        Passengers : 2
+
+        Car No. 5
+-----------------------------
+FORD
+F-150 Raptor
+2013
+Pickup
+5
+548
+--------------------------------
+        Car No. 6
+------------------------------
+TESLA
+S
+2014
+Electric Car
+5
+788
+-----------------------------------
+Car No. 7
+--------------------------------
+FORD
+Endeavour
+2016
+SUV
+7
+456
+-----------------------------------
+Car No. 8
+-------------------------------------
+NISSAN
+Navara 4WD
+2015
+Pickup Truck
+5
+365
+-----------------------------------------
+ Car No. 9
+---------------------------------------
+TOYOTA
+Camry
+2015
+Car
+5
+345
+------------------------------------------
+        Car No. 10
+-----------------------------------------
+BENZ
+CLA 220 2.2
+2015
+Lux. car
+5
+876
+-----------------------------------------
+        Car No. 11
+------------------------------------------
+RENULT
+Duster_85PS D
+2014
+Med. SUV
+5
+456
+----------------------------------------
+        Car No. 12
+-----------------------------------------
+TOYOTA
+Land Cruiser Prado
+2016
+SUV
+7
+768
