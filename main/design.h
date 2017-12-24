@@ -6,7 +6,7 @@
  }
 void welcome() {
  ifstream design, font;
- design.open("design3.txt", ios:: in );
+ design.open("design.txt", ios:: in );
  char ch;
  while (design.get(ch)) {
   cout << ch;
